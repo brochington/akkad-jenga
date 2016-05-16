@@ -7,7 +7,7 @@ import JengaBlock from './JengaBlock';
 const {Box} = shapes;
 const {Color} = systems;
 
-const pieces = Range(1, 10)
+const pieces = Range(1, 20)
                     .groupBy(n => n % 3)
                     .map((arr, arrIndex) => {
                         return arrIndex % 2
