@@ -8,9 +8,9 @@ class JengaGround extends Component {
     render() {
         return (
             <Ground
-                    height={300}
-                    width={300}
-                >
+                height={300}
+                width={300}
+            >
                 <CheckCollisions />
                 <Position vector={[0, -2, 0]} />
                 <Material>

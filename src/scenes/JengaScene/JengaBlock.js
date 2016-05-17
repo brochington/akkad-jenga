@@ -14,6 +14,10 @@ class JengaBlock extends Component {
         rotation: [0, 0, 0]
     };
 
+    static contextTypes = {
+        actions: PropTypes.object
+    }
+
     state = {
         wireframe: false
     }
@@ -22,8 +26,8 @@ class JengaBlock extends Component {
         console.log('clicked a box!!!');
     }
 
-    mouseOverBlock = (a, b) => {
-        // console.log('mouseOverBlock', a, b);
+    mouseOverBlock = (evt, meshID, triggerID) => {
+        this.context.actions.mouseOverBlock(evt, meshID, triggerID);
         this.setState({wireframe: true})
     }
 
