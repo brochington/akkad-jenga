@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {shapes, Material, systems} from 'akkad';
 
 const {Box} = shapes;
-const {Color, Position, Rotation, Trigger, PhysicsState, Wireframe} = systems;
+const {Color, Position, Rotation, Trigger, PhysicsState, SubMesh} = systems;
 
 class JengaBlock extends Component {
     static propTypes = {
@@ -28,29 +28,28 @@ class JengaBlock extends Component {
 
     mouseOverBlock = (evt, meshID, triggerID) => {
         this.context.actions.mouseOverBlock(evt, meshID, triggerID);
-        this.setState({wireframe: true})
+        // this.setState({wireframe: true})
     }
 
     mouseOutBlock = () => {
         // console.log('mouseOutBlock');
-        this.setState({wireframe: false})
+        // this.setState({wireframe: false})
     }
 
     render() {
         const {position, rotation} = this.props;
-
         return (
             <Box width={3} height={0.6} updatable>
                 <Rotation axis={rotation} />
                 <Position vector={position} />
-                <PhysicsState mass={3} />
+                <PhysicsState mass={10} />
                 <Trigger
                     onClick={this.clickBlock}
                     onMouseOver={this.mouseOverBlock}
                     onMouseOut={this.mouseOutBlock}
                 />
+                <SubMesh />
                 <Material>
-                    {this.state.wireframe && <Wireframe />}
                     <Color color={[0.2, 0.5, 1.7]} />
                 </Material>
 

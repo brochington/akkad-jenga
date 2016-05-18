@@ -7,18 +7,21 @@ import JengaBlock from './JengaBlock';
 const {Box} = shapes;
 const {Color} = systems;
 
-const pieces = Range(0, 12)
-                    .groupBy(n => n % 4)
+const levels = 3;
+
+const pieces = Range(0, levels * 3)
+                    .groupBy(n => n % levels)
                     .map((arr, arrIndex) => {
                         return arr.map((val, i) => {
-                            const position = arrIndex % 2
-                                                 ? [0, 0, i * 1.1]
-                                                 : [i - 1, 1, 1]
-                            const rotation = arrIndex % 2
-                                                 ? [0, 0, 0]
-                                                 : [0, 1.55, 0]
+                            const l = arrIndex + 1;
+
                             return {
-                                position, rotation
+                                position: l % 2
+                                              ? [0, l * 0.65, i * 1.1]
+                                              : [i - 1, l * 0.65, 1],
+                                rotation: l % 2
+                                              ? [0, 0, 0]
+                                              : [0, 1.55, 0]
                             }
                         })
                     })
@@ -27,8 +30,6 @@ const pieces = Range(0, 12)
 
 class JengaBlocks extends Component {
     render() {
-
-
         return (
             <div>
                 {pieces.map((v, i) => <JengaBlock key={`jenga-block-${i}`} {...v} />)}

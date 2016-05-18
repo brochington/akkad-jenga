@@ -12,7 +12,7 @@ class JengaGround extends Component {
                 width={300}
             >
                 <CheckCollisions />
-                <Position vector={[0, -2, 0]} />
+                <Position vector={[0, -1, 0]} />
                 <Material>
                     <Color color={[0, 1, 1]} />
                 </Material>
