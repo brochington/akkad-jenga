@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Immutable, {Range} from 'immutable';
 import {shapes, Material, systems} from 'akkad';
 
 const {Box} = shapes;
@@ -15,7 +16,8 @@ const {
 class JengaBlock extends Component {
     static propTypes = {
         position: PropTypes.arrayOf(PropTypes.number),
-        rotation: PropTypes.arrayOf(PropTypes.number)
+        rotation: PropTypes.arrayOf(PropTypes.number),
+        jengaBlockIndex: PropTypes.number.isRequired
     };
 
     static defaultProps = {
@@ -23,17 +25,20 @@ class JengaBlock extends Component {
     };
 
     static contextTypes = {
+        appState: PropTypes.object,
         actions: PropTypes.object
     }
 
     clickBlock = (evt, meshID, triggerID) => {
         // console.log('clicked a box!!!');
         // console.log(evt, meshID, triggerID);
-        this.context.actions.clickOnBlock(evt, meshID, triggerID);
+
+        this.context.actions.clickOnBlock(evt, meshID, triggerID, this.props.jengaBlockIndex);
     }
 
     mouseOverBlock = (evt, meshID, triggerID) => {
-        this.context.actions.mouseOverBlock(evt, meshID, triggerID);
+        // this.context.actions.mouseOverBlock(evt, meshID, triggerID);
+        this.context.actions.clickOnBlock(evt, meshID, triggerID, this.props.jengaBlockIndex);
     }
 
     mouseOutBlock = () => {
@@ -41,7 +46,21 @@ class JengaBlock extends Component {
     }
 
     render() {
-        const {position, rotation} = this.props;
+        const {position, rotation, jengaBlockIndex} = this.props;
+        const {appState} = this.context;
+        const selectedBlock = appState.getIn(['selectedBlock', 'blockIndex'], null);
+        const subMeshId = appState.getIn(['selectedBlock', 'subMeshId'], null);
+
+        const materials = Range(0, 5).map((i) => {
+            const color = jengaBlockIndex === selectedBlock && subMeshId === i
+                            ? [0.2, 1.5, 0.7]
+                            : [0.9, 0.5, 1.7];
+            return (
+                <Material key={`block-material-${i}`}>
+                    <Color color={color} />
+                </Material>
+            );
+        }).toList();
 
         return (
             <Box width={3} height={0.6} updatable>
@@ -54,7 +73,8 @@ class JengaBlock extends Component {
                     onMouseOut={this.mouseOutBlock}
                 />
                 <MultiMaterial>
-                    <Material>
+                    {materials}
+                    {/*<Material>
                         <Color color={[0.2, 1.5, 0.7]} />
                     </Material>
                     <Material>
@@ -71,7 +91,7 @@ class JengaBlock extends Component {
                     </Material>
                     <Material>
                         <Color color={[1, 0.2, 1]} />
-                    </Material>
+                    </Material>*/}
                 </MultiMaterial>
                 <SubMesh
                     materialIndex={0}
