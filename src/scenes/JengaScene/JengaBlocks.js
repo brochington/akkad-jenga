@@ -33,6 +33,7 @@ class JengaBlocks extends Component {
         return (
             <div>
                 {pieces.map((v, i) => <JengaBlock key={`jenga-block-${i}`} {...v} />)}
+                {/*<JengaBlock position={[0, 0, 0]} rotation={[0, 0, 0]} />*/}
             </div>
         );
     }
