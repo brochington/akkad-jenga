@@ -10,7 +10,7 @@
     "setup:dev": "npm run setup && npm run build:dev",
     "start": "npm run clean && npm run build && node server.prod.js",
     "start:dev": "node server.dev.js",
-    "build": "NODE_ENV=production /app/node_modules/.bin/webpack --config webpack.config.prod.js --display-error-details",
+    "build": "NODE_ENV=production node_modules/.bin/webpack --config webpack.config.prod.js --display-error-details",
     "build:dev": "npm run clean && NODE_ENV=development webpack --config webpack.config.dev.js --display-error-details",
     "link:akkad": "npm link akkad"
   },
