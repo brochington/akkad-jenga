@@ -1,6 +1,6 @@
 {
   "name": "akkad-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple boilerplate to quickly get started with Akkad",
   "author": "Broch Stilley <brochington@gmail.com> (http://github.com/brochington)",
   "scripts": {
